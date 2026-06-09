@@ -1,6 +1,6 @@
 # 📊 Al-Qafila Systems Architecture
 **المعماري:** وسام حاج محمد (Wissam Hajj Mohammad)
-
+google-site-verification=MQFm10S4G-bQ5n5Gr2OBrwSnrkojd6Y09w8xQ-PO78M
 ### 📌 نظرة عامة
 تعد "معمارية القافلة" (Qafila Systems Architecture) إطار عمل تقني متقدم مصمم لإدارة النظم المعقدة وسلاسل الإمداد الرقمية وفق **بروتوكول 963**. تهدف هذه المعمارية إلى دمج الكفاءة اللوجستية مع الحلول السحابية المبتكرة لتحقيق استمرارية الأعمال في الأسواق النامية.
 
