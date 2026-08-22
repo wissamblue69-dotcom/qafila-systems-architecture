@@ -1,0 +1,26 @@
+{
+  "schema_version": "qafila-verification-test.v1",
+  "test_id": "verify_gemini_context_gh02_v1",
+  "purpose": "Verify that a collaborating reviewer retained the deterministic governance context without relying on unstated assumptions.",
+  "question_ar": "ما نتيجة اختبار GH-02 محلياً، وأين سجلت الحالات السلبية، وما الملاحظة الحرجة في deterministic-gate.yml قبل تحويله إلى Required Check؟",
+  "expected_assertions": [
+    {
+      "claim_ref": "GH-02-result",
+      "must_contain": ["10/10", "hold", "حجب"]
+    },
+    {
+      "claim_ref": "GH-02-evidence",
+      "must_contain": ["hold_register.jsonl"]
+    },
+    {
+      "claim_ref": "workflow-pin",
+      "must_contain": ["@v4", "commit SHA"]
+    }
+  ],
+  "acceptance_rule": "All three expected assertions must be present in a bounded answer. Any missing or ambiguous assertion is recorded as hold: verification_incomplete.",
+  "non_goals": [
+    "This test does not authorize an external action.",
+    "This test does not prove cryptographic identity of the responder.",
+    "This test does not replace a human approval."
+  ]
+}

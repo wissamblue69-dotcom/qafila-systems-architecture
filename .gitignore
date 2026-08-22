@@ -21,3 +21,8 @@ rad.json
 *.flf
 #Test results file
 TestResults.xml
+
+# Qafila local governance-run artifacts and Python caches
+qafila/artifacts/
+__pycache__/
+*.py[cod]

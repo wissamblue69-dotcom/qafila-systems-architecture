@@ -1,0 +1,46 @@
+{
+  "policy_version": "qafila-governance-policy.v1",
+  "mode": "experimental_dry_run",
+  "default_decision": "hold",
+  "network_egress": "deny",
+  "operations": {
+    "allowed": ["validate", "read_metadata"],
+    "denied": ["write", "delete", "merge", "release", "execute"]
+  },
+  "allowed_sources": [
+    "github:wissamblue69-dotcom/qafila-systems-architecture",
+    "github:wissamblue69-dotcom/AlQFILA",
+    "github:wissamblue69-dotcom/alqafila",
+    "fixture:qafila"
+  ],
+  "required_provenance_fields": [
+    "uri",
+    "locator",
+    "extraction_method",
+    "source_hash",
+    "captured_at"
+  ],
+  "required_event_fields": [
+    "event_id",
+    "schema_version",
+    "source_ref",
+    "correlation_id",
+    "idempotency_key",
+    "payload",
+    "provenance",
+    "classification",
+    "status"
+  ],
+  "reject_unknown_properties": true,
+  "require_recomputed_payload_hash": true,
+  "require_recomputed_idempotency_key": true,
+  "hold_reasons": {
+    "schema_invalid": "لا يطابق الحدث مخطط qafila-event.v1.",
+    "source_not_allowed": "المصدر خارج قائمة المصادر المصرح بها.",
+    "provenance_missing": "حقول provenance مطلوبة مفقودة أو فارغة.",
+    "payload_hash_mismatch": "بصمة payload لا تطابق النص المعياري.",
+    "idempotency_key_mismatch": "مفتاح منع التكرار لا يطابق المعرف أو المصدر أو البصمة.",
+    "operation_denied": "العملية المطلوبة غير مسموحة في وضع التجربة.",
+    "duplicate_event": "الحدث مكرر ضمن حزمة التشغيل."
+  }
+}

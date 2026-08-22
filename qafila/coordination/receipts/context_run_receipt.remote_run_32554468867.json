@@ -1,0 +1,42 @@
+{
+  "approval_scope": "User authorized pushing chore/qafila-governance-draft and opening Draft PR #6 only.",
+  "commit_sha": "d13c0a3818e78fb6c8a85daf14118c90340acf34",
+  "external_actions": {
+    "branch_protection_changed": false,
+    "branch_pushed": true,
+    "draft_pull_request_created": true,
+    "github_app_installed": false,
+    "release_created": false,
+    "required_checks_enabled": false,
+    "secrets_created": false
+  },
+  "mode": "experimental_dry_run",
+  "pull_request": {
+    "base_branch": "main",
+    "draft": true,
+    "number": 6,
+    "url": "https://github.com/wissamblue69-dotcom/qafila-systems-architecture/pull/6"
+  },
+  "receipt_hash": "sha256:2e4d392afda0bbd7da86dc72978073c75946782d99a9307fdfc5ca30756342a7",
+  "receipt_id": "ctxr_qafila_github_run_32554468867",
+  "repository": "wissamblue69-dotcom/qafila-systems-architecture",
+  "run_type": "github_draft_pr_governance_gate",
+  "schema_version": "qafila-context-run-receipt.v1",
+  "validated_steps": [
+    "Verify tracked fixtures are reproducible",
+    "GH-01 run A — valid event",
+    "GH-01 run B — valid event",
+    "GH-02 — negative fail-closed suite",
+    "Publish governance evidence",
+    "Publish check summary"
+  ],
+  "workflow": {
+    "artifact_id": "9471015895",
+    "artifact_name": "qafila-governance-evidence-32554468867",
+    "conclusion": "success",
+    "job_name": "Qafila Governance / deterministic-gate",
+    "name": "Qafila Deterministic Gate",
+    "run_id": "32554468867",
+    "run_url": "https://github.com/wissamblue69-dotcom/qafila-systems-architecture/actions/runs/32554468867"
+  }
+}

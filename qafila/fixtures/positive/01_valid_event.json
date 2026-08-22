@@ -1,0 +1,31 @@
+{
+  "event": {
+    "actor_ref": "agent:fixture-generator",
+    "classification": "source",
+    "content_type": "source",
+    "correlation_id": "run_qafila_poc_0001",
+    "created_at": "2026-08-22T00:00:00Z",
+    "event_id": "evt_qafila_fixture_0001",
+    "idempotency_key": "sha256:cd602a7411abe2ec938b2133002bdbf232b584c654ee414bab5c67dc82f1796b",
+    "payload": {
+      "normalized_label": "qafila-evidence",
+      "original_term": "قافلة",
+      "payload_hash": "sha256:3cbb4595d2c9717c1f1674e410d2bf3383af5e02c2a9bb3fd9925829eb973b85",
+      "relations": [
+        "implements:governance-policy.v1"
+      ],
+      "text": "Qafila deterministic gate fixture for a provenance-bound evidence event."
+    },
+    "provenance": {
+      "captured_at": "2026-08-22T00:00:00Z",
+      "extraction_method": "fixture",
+      "locator": "fixture:positive:1",
+      "source_hash": "sha256:b625917cf2551511aaa525c8aaaea6db153815100eb346fd536ad155a1c6dc1a",
+      "uri": "fixture://qafila/positive/event-0001"
+    },
+    "schema_version": "qafila-event.v1",
+    "source_ref": "fixture:qafila",
+    "status": "raw"
+  },
+  "operation": "validate"
+}

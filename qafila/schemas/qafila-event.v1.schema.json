@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qafila.local/schemas/qafila-event.v1.schema.json",
+  "title": "Qafila Event v1",
+  "description": "Contract for provenance-bound Qafila evidence events in deterministic dry-run mode.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "schema_version",
+    "created_at",
+    "source_ref",
+    "actor_ref",
+    "correlation_id",
+    "idempotency_key",
+    "content_type",
+    "payload",
+    "provenance",
+    "classification",
+    "status"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt_[A-Za-z0-9_-]{8,128}$"
+    },
+    "schema_version": {
+      "const": "qafila-event.v1"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 256
+    },
+    "actor_ref": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 256
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 256
+    },
+    "idempotency_key": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "content_type": {
+      "enum": ["note", "source", "claim", "decision", "sync_intent"]
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "payload_hash"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50000
+        },
+        "original_term": {
+          "type": ["string", "null"],
+          "maxLength": 2048
+        },
+        "normalized_label": {
+          "type": ["string", "null"],
+          "maxLength": 2048
+        },
+        "relations": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1, "maxLength": 256},
+          "maxItems": 100
+        },
+        "payload_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "locator", "extraction_method", "source_hash", "captured_at"],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 4096
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        },
+        "extraction_method": {
+          "enum": ["manual", "api", "export", "browser_visible", "fixture"]
+        },
+        "source_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "captured_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "classification": {
+      "enum": ["source", "summary", "inference", "proposal", "hypothesis"]
+    },
+    "status": {
+      "enum": ["raw", "normalized", "review", "approved", "rejected", "hold"]
+    }
+  }
+}
