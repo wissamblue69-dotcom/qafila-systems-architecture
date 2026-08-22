@@ -1,0 +1,103 @@
+name: Qafila Deterministic Gate
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "qafila/**"
+      - ".github/workflows/deterministic-gate.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deterministic-gate:
+    name: Qafila Governance / deterministic-gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: qafila
+      PYTHONDONTWRITEBYTECODE: "1"
+      QAFILA_MODE: experimental_dry_run
+      QAFILA_NETWORK_EGRESS: deny
+    steps:
+      # TODO before enforcement: pin each Action to a reviewed commit SHA.
+      - name: Checkout pull request source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Verify tracked fixtures are reproducible
+        run: |
+          set -euo pipefail
+          python3 qafila/scripts/make_fixtures.py
+          git diff --exit-code -- qafila/fixtures
+
+      - name: GH-01 run A — valid event
+        run: |
+          set -euo pipefail
+          rm -rf qafila/artifacts/ci/gh01-run-a
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/positive \
+            --artifacts qafila/artifacts/ci/gh01-run-a \
+            --experiment-id GH-01 \
+            --run-label ci-run-a \
+            --expect allow
+
+      - name: GH-01 run B — valid event
+        run: |
+          set -euo pipefail
+          rm -rf qafila/artifacts/ci/gh01-run-b
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/positive \
+            --artifacts qafila/artifacts/ci/gh01-run-b \
+            --experiment-id GH-01 \
+            --run-label ci-run-b \
+            --expect allow
+          python3 qafila/scripts/compare_runs.py \
+            --left qafila/artifacts/ci/gh01-run-a/benchmark.csv \
+            --right qafila/artifacts/ci/gh01-run-b/benchmark.csv \
+            --out qafila/artifacts/ci/determinism.diff.json
+
+      - name: GH-02 — negative fail-closed suite
+        run: |
+          set -euo pipefail
+          rm -rf qafila/artifacts/ci/gh02-negative
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/negative \
+            --artifacts qafila/artifacts/ci/gh02-negative \
+            --experiment-id GH-02 \
+            --run-label ci-negative-suite \
+            --expect hold
+          test "$(wc -l < qafila/artifacts/ci/gh02-negative/hold_register.jsonl)" -eq 10
+
+      - name: Publish governance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qafila-governance-evidence-${{ github.run_id }}
+          if-no-files-found: error
+          path: |
+            qafila/artifacts/ci/**
+
+      - name: Publish check summary
+        if: always()
+        run: |
+          {
+            echo "## Qafila Deterministic Gate"
+            echo
+            echo "- Mode: \`experimental_dry_run\`"
+            echo "- Network egress: \`deny\`"
+            echo "- GH-01: two local deterministic runs compared"
+            echo "- GH-02: 10 negative fixtures must be held"
+            echo "- Evidence: downloadable workflow artifact only; this workflow does not write commits, issues, or pull requests."
+          } >> "$GITHUB_STEP_SUMMARY"

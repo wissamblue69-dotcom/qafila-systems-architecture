@@ -1,0 +1,70 @@
+{
+  "assertions": [
+    {
+      "claim_ref": "GH-01",
+      "scope": "two deterministic local runs",
+      "status": "locally_validated"
+    },
+    {
+      "claim_ref": "GH-02",
+      "scope": "ten negative fixtures held",
+      "status": "locally_validated"
+    },
+    {
+      "claim_ref": "GEMINI_REVIEW",
+      "scope": "user-supplied review capsule",
+      "status": "recorded_as_external_review"
+    },
+    {
+      "claim_ref": "DRAFT_PR",
+      "scope": "no remote branch or PR exists",
+      "status": "local_only"
+    }
+  ],
+  "base_commit": "dd58ec6effcc2bc4886f655e0e7484a0feb34203",
+  "external_actions": {
+    "branch_protection_changed": false,
+    "email_sent": false,
+    "git_push": false,
+    "pull_request_created": false,
+    "release_created": false
+  },
+  "mode": "experimental_dry_run",
+  "policy_version": "qafila-governance-policy.v1",
+  "receipt_hash": "sha256:47aeb935ac4eb5444bb9f8d468dc562908514cb0f1ff3d1c48826526b700ffa5",
+  "receipt_id": "ctxr_qafila_coordination_20260822_001",
+  "repository": "wissamblue69-dotcom/qafila-systems-architecture",
+  "review_status": "candidate_review_recorded",
+  "run_type": "coordination_review_ingest",
+  "schema_version": "qafila-context-run-receipt.v1",
+  "sources": [
+    {
+      "path": "qafila/coordination/README.md",
+      "source_hash": "sha256:a5acf1f6f7f6733a2023d8f46d36bf57cc4476160469b944334586ebe6973ede"
+    },
+    {
+      "path": "qafila/coordination/review_capsules/GEMINI_REVIEW_CAPSULE.md",
+      "source_hash": "sha256:96401ea0b603d8610d06b1ce83ce5f478a1d8ab33593e5469ba5d338f5a2cd77"
+    },
+    {
+      "path": "qafila/coordination/verification/verification_test.v1.json",
+      "source_hash": "sha256:17b6ba99486f289630424c689a610837616a6aab52dbb7f5a7bc52bf9fb0b820"
+    },
+    {
+      "path": "qafila/docs/gh01-gh02-local-results.md",
+      "source_hash": "sha256:1e18cd2e40160e9e22792c4fe274a26b578ca062324a36c6ea57d1ef781ae179"
+    },
+    {
+      "path": ".github/workflows/deterministic-gate.yml",
+      "source_hash": "sha256:8b9b82da28a24e70f2cd8f73d0dd6e1c84498ccaab2e91dd582d03fb1d0e4bfa"
+    },
+    {
+      "path": "DRAFT_PR_REVIEW.md",
+      "source_hash": "sha256:32331084fe2c9768fdef891451692c5b0bd44763bf68b14dcbc23f58dbce7f21"
+    },
+    {
+      "path": "qafila/policy/governance-policy.v1.json",
+      "source_hash": "sha256:53f89cdfb0475d0587a196dbfa4157057f66a47401caa31252564c63e3da80b7"
+    }
+  ]
+}
