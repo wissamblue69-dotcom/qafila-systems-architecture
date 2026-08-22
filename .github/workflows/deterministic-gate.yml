@@ -80,6 +80,16 @@ jobs:
             --expect hold
           test "$(wc -l < qafila/artifacts/ci/gh02-negative/hold_register.jsonl)" -eq 10
 
+      - name: G-3 — build evidence coverage candidate
+        run: |
+          set -euo pipefail
+          python3 qafila/scripts/build_evidence_coverage.py \
+            --artifact-root qafila/artifacts/ci \
+            --policy qafila/policy/governance-policy.v1.json \
+            --schema qafila/schemas/qafila-event.v1.schema.json \
+            --out-md qafila/artifacts/ci/evidence_coverage.candidate.md \
+            --out-json qafila/artifacts/ci/evidence_coverage.candidate.json
+
       - name: Publish governance evidence
         if: always()
         # Pinned to actions/upload-artifact v7.0.1 after review of the official release commit.
@@ -100,5 +110,6 @@ jobs:
             echo "- Network egress: \`deny\`"
             echo "- GH-01: two local deterministic runs compared"
             echo "- GH-02: 10 negative fixtures must be held"
+            echo "- G-3: evidence coverage candidate generated as an artifact only"
             echo "- Evidence: downloadable workflow artifact only; this workflow does not write commits, issues, or pull requests."
           } >> "$GITHUB_STEP_SUMMARY"
