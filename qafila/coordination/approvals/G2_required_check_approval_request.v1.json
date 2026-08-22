@@ -1,0 +1,39 @@
+{
+  "schema_version": "qafila-approval.v1",
+  "approval_id": "apr_qafila_g2_required_check_001",
+  "created_at": "2026-08-22T05:30:00Z",
+  "risk_level": "high",
+  "action_type": "github.branch_protection.required_check.enable",
+  "target": {
+    "provider": "github",
+    "repository": "wissamblue69-dotcom/qafila-systems-architecture",
+    "branch": "main",
+    "required_check": "Qafila Governance / deterministic-gate"
+  },
+  "requested_by": "qafila-policy-agent",
+  "policy_version": "qafila-governance-policy.v1",
+  "source_revision": "92b69b9bf61540a30040289cb1dd65d9d2b87cc6",
+  "evidence_refs": [
+    "qafila/coordination/receipts/context_run_receipt.remote_run_32554468867.json",
+    "https://github.com/wissamblue69-dotcom/qafila-systems-architecture/actions/runs/32554513667",
+    "https://github.com/wissamblue69-dotcom/qafila-systems-architecture/pull/6"
+  ],
+  "diff_summary": "Make the existing read-only Qafila deterministic gate a required, strict status check for pull requests targeting main. No merge, release, secret, token, or branch-write permission is added by this request.",
+  "expected_operational_effect": "Pull requests targeting main cannot merge until the named check returns successful, skipped, or neutral according to branch protection settings.",
+  "decision": "pending",
+  "nonce": "UNISSUED-HUMAN-APPROVAL-REQUIRED",
+  "expires_at": null,
+  "preconditions": [
+    "The final named check has completed successfully on the intended default branch context.",
+    "A human has reviewed the Draft PR and this request.",
+    "The human issuer supplies a unique nonce, an expiry, and an explicit APPROVE decision.",
+    "DCO and repository contribution requirements are resolved before merge; they are not altered by this request."
+  ],
+  "fail_closed_rule": "This document is not an approval. Any missing nonce, expiry, allowed approver, source revision match, or explicit decision must remain hold and must not trigger a repository settings change.",
+  "external_actions": {
+    "branch_protection_changed": false,
+    "required_check_enabled": false,
+    "pull_request_merged": false,
+    "release_created": false
+  }
+}
