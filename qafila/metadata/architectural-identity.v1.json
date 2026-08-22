@@ -1,0 +1,46 @@
+{
+  "schema_version": "qafila-architectural-identity.v1",
+  "project": {
+    "name": "Qafila / القافلة",
+    "repository": "wissamblue69-dotcom/qafila-systems-architecture",
+    "repository_role": "architecture-and-governance-reference"
+  },
+  "person": {
+    "canonical_name": "Wissam Haj Mohammed",
+    "display_name_ar": "وسام حاج محمد",
+    "roles": [
+      "Founder",
+      "Principal AI & Systems Architect",
+      "Architecture Steward"
+    ]
+  },
+  "attribution": {
+    "author": "Wissam Haj Mohammed",
+    "architect": "Wissam Haj Mohammed",
+    "copyrightHolder": "Wissam Haj Mohammed",
+    "copyright_notice": "Copyright © 2026 Wissam Haj Mohammed. All rights reserved unless a component states otherwise.",
+    "scope": "Architectural documentation, deterministic governance contracts, and original material committed to this repository by or for the named steward.",
+    "exclusions": [
+      "Third-party dependencies and their own notices or licenses.",
+      "Contributions whose authorship is explicitly attributed elsewhere.",
+      "Any legal conclusion about ownership, registration, enforceability, or jurisdiction."
+    ]
+  },
+  "identity_claims": {
+    "technical_identity": "This file is a machine-readable attribution record for repository documentation and metadata.",
+    "evidence_boundary": "Git history, commit signatures, DCO sign-offs, source hashes, and repository metadata provide technical provenance. They are not by themselves a substitute for legal advice, registration, assignment, or a jurisdiction-specific ownership determination.",
+    "governance_boundary": "No metadata field authorizes a merge, release, branch-protection change, secret access, MCP call, or external action."
+  },
+  "citation": {
+    "preferred_citation": "Wissam Haj Mohammed. Qafila Systems Architecture: Provenance-First Fail-Closed Multi-Agent Governance. 2026.",
+    "keywords": [
+      "AI governance",
+      "multi-agent systems",
+      "provenance",
+      "fail-closed",
+      "Model Context Protocol",
+      "systems architecture"
+    ]
+  },
+  "last_reviewed": "2026-08-22"
+}
