@@ -22,7 +22,7 @@ def main() -> int:
     args = parser.parse_args()
     receipt = {
         "schema_version": "qafila-context-run-receipt.v1",
-        "receipt_id": "ctxr_qafila_github_run_32554372127",
+        "receipt_id": f"ctxr_qafila_github_run_{args.run_id}",
         "run_type": "github_draft_pr_governance_gate",
         "mode": "experimental_dry_run",
         "repository": "wissamblue69-dotcom/qafila-systems-architecture",
@@ -35,7 +35,7 @@ def main() -> int:
             "run_url": args.run_url,
             "conclusion": "success",
             "artifact_id": args.artifact_id,
-            "artifact_name": "qafila-governance-evidence-32554372127"
+            "artifact_name": f"qafila-governance-evidence-{args.run_id}"
         },
         "validated_steps": [
             "Verify tracked fixtures are reproducible",
