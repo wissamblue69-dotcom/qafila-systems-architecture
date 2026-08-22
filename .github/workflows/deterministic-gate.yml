@@ -27,9 +27,9 @@ jobs:
       QAFILA_MODE: experimental_dry_run
       QAFILA_NETWORK_EGRESS: deny
     steps:
-      # TODO before enforcement: pin each Action to a reviewed commit SHA.
+      # Pinned to actions/checkout v7.0.1 after review of the official release commit.
       - name: Checkout pull request source
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
 
@@ -82,7 +82,8 @@ jobs:
 
       - name: Publish governance evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        # Pinned to actions/upload-artifact v7.0.1 after review of the official release commit.
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: qafila-governance-evidence-${{ github.run_id }}
           if-no-files-found: error
