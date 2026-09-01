@@ -1,0 +1,109 @@
+name: Qafila Self-Hosted CI
+
+on:
+  push:
+    branches: ["main", "master"]
+    paths:
+      - "qafila/**"
+      - ".github/workflows/qafila-self-hosted-ci.yml"
+  pull_request:
+    branches: ["main", "master"]
+    paths:
+      - "qafila/**"
+      - ".github/workflows/qafila-self-hosted-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qafila-self-hosted-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  qafila-gate:
+    name: Qafila gate on local runner
+    runs-on: [self-hosted, linux, x64, qafila]
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: qafila
+      PYTHONDONTWRITEBYTECODE: "1"
+      QAFILA_MODE: experimental_dry_run
+      QAFILA_NETWORK_EGRESS: deny
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Verify Python runtime
+        run: |
+          set -euo pipefail
+          python3 --version
+          python3 -m compileall -q qafila
+
+      - name: Verify tracked fixtures are reproducible
+        run: |
+          set -euo pipefail
+          python3 qafila/scripts/make_fixtures.py
+          git diff --exit-code -- qafila/fixtures
+
+      - name: GH-01 — deterministic valid-event runs
+        run: |
+          set -euo pipefail
+          rm -rf qafila/artifacts/ci/self-hosted-gh01-a qafila/artifacts/ci/self-hosted-gh01-b
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/positive \
+            --artifacts qafila/artifacts/ci/self-hosted-gh01-a \
+            --experiment-id GH-01 \
+            --run-label self-hosted-a \
+            --expect allow
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/positive \
+            --artifacts qafila/artifacts/ci/self-hosted-gh01-b \
+            --experiment-id GH-01 \
+            --run-label self-hosted-b \
+            --expect allow
+          python3 qafila/scripts/compare_runs.py \
+            --left qafila/artifacts/ci/self-hosted-gh01-a/benchmark.csv \
+            --right qafila/artifacts/ci/self-hosted-gh01-b/benchmark.csv \
+            --out qafila/artifacts/ci/self-hosted-determinism.diff.json
+
+      - name: GH-02 — negative fail-closed suite
+        run: |
+          set -euo pipefail
+          rm -rf qafila/artifacts/ci/self-hosted-gh02-negative
+          python3 -m qafila_gate.cli \
+            --policy qafila/policy/governance-policy.v1.json \
+            --fixtures qafila/fixtures/negative \
+            --artifacts qafila/artifacts/ci/self-hosted-gh02-negative \
+            --experiment-id GH-02 \
+            --run-label self-hosted-negative \
+            --expect hold
+          test "$(wc -l < qafila/artifacts/ci/self-hosted-gh02-negative/hold_register.jsonl)" -eq 10
+
+      - name: Publish local-runner evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qafila-self-hosted-evidence-${{ github.run_id }}
+          if-no-files-found: error
+          path: qafila/artifacts/ci/**
+
+      - name: Publish check summary
+        if: always()
+        run: |
+          {
+            echo "## Qafila Self-Hosted CI"
+            echo
+            echo "- Existing deterministic-gate workflow was not modified."
+            echo "- Runner labels: self-hosted, linux, x64, qafila"
+            echo "- GH-01: two local deterministic runs compared"
+            echo "- GH-02: 10 negative fixtures must be held"
+          } >> "$GITHUB_STEP_SUMMARY"
