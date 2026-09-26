@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use or reference this architectural work, please cite it as below."
+title: "Qafila Systems Architecture: Provenance-First Fail-Closed Multi-Agent Governance"
+type: software
+authors:
+  - family-names: "Haj Mohammed"
+    given-names: "Wissam"
+    name-particle: ""
+    orcid: ""
+version: "0.1.0-poc"
+date-released: "2026-08-22"
+repository-code: "https://github.com/wissamblue69-dotcom/qafila-systems-architecture"
+abstract: "A provenance-first, fail-closed architecture for the governed coordination of multi-agent systems, deterministic policy checks, human approvals, and reviewable evidence artifacts."
+keywords:
+  - "AI governance"
+  - "multi-agent systems"
+  - "provenance"
+  - "fail-closed"
+  - "Model Context Protocol"
+  - "systems architecture"
+license: "Proprietary"

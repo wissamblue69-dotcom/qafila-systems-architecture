@@ -3,6 +3,13 @@
   "$id": "https://qafila.local/schemas/qafila-event.v1.schema.json",
   "title": "Qafila Event v1",
   "description": "Contract for provenance-bound Qafila evidence events in deterministic dry-run mode.",
+  "x-qafila-identity": {
+    "author": "Wissam Haj Mohammed",
+    "architect": "Wissam Haj Mohammed",
+    "copyrightHolder": "Wissam Haj Mohammed",
+    "identityRecord": "qafila/metadata/architectural-identity.v1.json",
+    "attributionScope": "Schema authorship and architectural stewardship; not event-level provenance or an authorization grant."
+  },
   "type": "object",
   "additionalProperties": false,
   "required": [

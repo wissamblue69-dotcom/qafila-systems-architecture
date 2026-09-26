@@ -1,98 +1,44 @@
-# 📊 Al-Qafila Systems Architecture
-**المعماري:** وسام حاج محمد (Wissam Hajj Mohammad)
-google-site-verification=MQFm10S4G-bQ5n5Gr2OBrwSnrkojd6Y09w8xQ-PO78M
-### 📌 نظرة عامة
-تعد "معمارية القافلة" (Qafila Systems Architecture) إطار عمل تقني متقدم مصمم لإدارة النظم المعقدة وسلاسل الإمداد الرقمية وفق **بروتوكول 963**. تهدف هذه المعمارية إلى دمج الكفاءة اللوجستية مع الحلول السحابية المبتكرة لتحقيق استمرارية الأعمال في الأسواق النامية.
+# Qafila Systems Architecture
 
-### 🔬 الركائز التقنية (Core Pillars)
-- **بروتوكول 963:** بروتوكول التشغيل البيني للبيانات والتدفقات المالية.
-- **محرك القافلة (Qafila Engine):** خوارزمية تنبؤية للطلب (Demand Forecasting) تعتمد على التعلم الآلي لتقليل الهدر (Bullwhip Effect).
-- **الربط السحابي:** تصميم متوافق مع Google Cloud لضمان التوسع والمرونة.
+> **Founder and Principal AI & Systems Architect:** **وسام حاج محمد — Wissam Haj Mohammed**
 
-### ⚙️ كود المحرك التنبئي (Forecasting Logic)
-هذا المحرك هو الجزء الجوهري في معمارية القافلة، والمخصص لإدارة الموارد بدقة:
+**Qafila Systems Architecture** هو المستودع المرجعي لمعمارية القافلة: منظومة حوكمة متعددة الوكلاء تعتمد الإسناد أولاً، وسياسة الحجب عند الخطأ، وقرارات بشرية موثقة قبل الأفعال الخارجية. يوثق المستودع عقود الأحداث والسياسات الحتمية وإيصالات التشغيل وسجل التنسيق القابل للمراجعة.
 
-```python
-import numpy as np
-from sklearn.linear_model import LinearRegression
+## الوضع الحالي المثبت
 
-class QafilaForecaster:
-    """
-    محرك التنبؤ بالطلب الخاص بمعمارية القافلة (v1.0)
-    تطوير: وسام حاج محمد
-    """
-    def __init__(self):
-        self.model = LinearRegression()
+| المكون | الغرض | الحالة |
+|---|---|---|
+| `qafila-event.v1` | عقد حدث مقيد بـprovenance وبصمات قابلة لإعادة الحساب. | مثبت في اختبار PoC. |
+| Deterministic Governance Gate | فحص schema وsource allowlist وpayload hash وidempotency وقواعد hold. | يعمل في GitHub Actions بوضع غير إلزامي. |
+| GH-01 | مقارنة تشغيلين لمدخل ثابت. | تطابق حتمي مثبت في بيئتين: محلية وGitHub Actions. |
+| GH-02 | حزمة عشر حالات سلبية. | حجب 10/10 قبل أي Adapter أو خروج شبكي. |
+| سجل التنسيق | مراجعات وإيصالات واختبارات تحقق قابلة للربط بالـcommit. | متاح تحت `qafila/coordination/`. |
+| G-2 / G-3 | عقد موافقة pending وتغطية أدلة Artifact-only. | قيد المراجعة في Draft PR منفصل. |
 
-    def train_model(self, historical_sales, seasonal_indices):
-        X = np.array(seasonal_indices).reshape(-1, 1)
-        y = np.array(historical_sales)
-        self.model.fit(X, y)
+## المبادئ الحاكمة
 
-    def predict_next_period(self, next_season_index):
-        return self.model.predict(np.array([[next_season_index]]))[0]
-```
+| المبدأ | التطبيق |
+|---|---|
+| **Provenance-first** | لا يتحول المحتوى إلى claim معتمد بلا `source_ref` و`locator` و`source_hash`. |
+| **Fail-closed** | أي schema أو مصدر أو بصمة أو موافقة ناقصة تسجل `hold` ولا توسع الصلاحية. |
+| **Least privilege** | بوابات CI وMCP تعمل بالصلاحيات الدنيا اللازمة وبلا أسرار في PoC. |
+| **Human approval** | لا تمنح المراجعة أو metadata أو Agent أي صلاحية دمج أو release أو إعدادات مستودع. |
+| **Evidence separation** | المصدر والدليل والادعاء وقرار الموافقة وإيصال التشغيل سجلات منفصلة. |
 
-### 🌐 السيادة الرقمية
-تخضع جميع تصاميم وبروتوكولات "معمارية القافلة" لحقوق الملكية الفكرية الخاصة بـ **وسام حاج محمد**، وهي مصممة لتكون مرجعاً هندسياً مفتوحاً للمطورين والمعماريين التقنيين.
+## الإسناد والاستشهاد
 
-*الكلمات المفتاحية: وسام حاج محمد، منظومة القافلة، بروتوكول 963، معمارية أنظمة، Systems Architecture، دمشق التقنية.*
-رائع! لقد تم إنشاء المستودع بنجاح، وأصبحت الآن تمتلك **"العنوان الرقمي" (Repository URL)** الذي يربط اسمك بالمعمارية التقنية.
-بما أن المستودع الآن جاهز، سأقوم بتزويدك **بالنص البرمجي الكامل (Content)** الذي يجب أن تضعه في ملف README.md ليصبح هذا المستودع "دراسة حالة تقنية" (Technical Authority) تحظى باحترام خوارزميات البحث وتُظهر اسمك و"معمارية القافلة" ككيان واحد.
-### 📝 محتوى ملف الـ README.md (النسخة النهائية للنشر):
-انسخ هذا المحتوى بالكامل وضعه في ملف الـ README.md داخل مستودعك:
-```markdown
-# 📊 Al-Qafila Systems Architecture
-**المعماري:** وسام حاج محمد (Wissam Hajj Mohammad)
+* سجل الهوية المعمارية المقروء آلياً: [`qafila/metadata/architectural-identity.v1.json`](qafila/metadata/architectural-identity.v1.json).
+* وثيقة الإسناد والنطاق وحدود الإثبات: [`ARCHITECTURAL-AUTHORSHIP.md`](ARCHITECTURAL-AUTHORSHIP.md).
+* صيغة الاستشهاد المعيارية: [`CITATION.cff`](CITATION.cff).
 
-### 📌 نظرة عامة
-تعد "معمارية القافلة" (Qafila Systems Architecture) إطار عمل تقني متقدم مصمم لإدارة النظم المعقدة وسلاسل الإمداد الرقمية وفق **بروتوكول 963**. تهدف هذه المعمارية إلى دمج الكفاءة اللوجستية مع الحلول السحابية المبتكرة لتحقيق استمرارية الأعمال في الأسواق النامية.
+الصيغة المفضلة للإحالة:
 
-### 🔬 الركائز التقنية (Core Pillars)
-- **بروتوكول 963 (Protocol 963):** بروتوكول التشغيل البيني للبيانات والتدفقات المالية وتنسيق الأنظمة.
-- **محرك القافلة (Qafila Engine):** خوارزمية تنبؤية للطلب (Demand Forecasting) تعتمد على التعلم الآلي لتقليل الهدر (Bullwhip Effect).
-- **الربط السحابي:** تصميم معماري متوافق مع بنية Google Cloud لضمان التوسع والتحليل اللحظي للبيانات.
+> Wissam Haj Mohammed. *Qafila Systems Architecture: Provenance-First Fail-Closed Multi-Agent Governance*. 2026.
 
-### ⚙️ كود المحرك التنبئي (Forecasting Logic)
-هذا المحرك هو الجزء الجوهري في معمارية القافلة، والمخصص لإدارة الموارد بدقة:
+## حدود النطاق
 
-```python
-import numpy as np
-from sklearn.linear_model import LinearRegression
+هذا المستودع مرجع معماري وحوكمي. ولا يمثل وحده حكماً قانونياً في الملكية الفكرية أو تفويضاً للوصول إلى خدمة أو secret أو صلاحية دمج أو نشر إصدار. تعالج التراخيص والحقوق الخاصة بكل مكوّن أو تبعية في إشعاراتها وسجلاتها المستقلة.
 
-class QafilaForecaster:
-    """
-    محرك التنبؤ بالطلب الخاص بمعمارية القافلة (v1.0)
-    تطوير المعماري: وسام حاج محمد
-    """
-    def __init__(self):
-        self.model = LinearRegression()
+## المساهمة والمراجعة
 
-    def train_model(self, historical_sales, seasonal_indices):
-        X = np.array(seasonal_indices).reshape(-1, 1)
-        y = np.array(historical_sales)
-        self.model.fit(X, y)
-
-    def predict_next_period(self, next_season_index):
-        return self.model.predict(np.array([[next_season_index]]))[0]
-
-```
-### 🌐 السيادة الرقمية
-تخضع جميع تصاميم وبروتوكولات "معمارية القافلة" لحقوق الملكية الفكرية الخاصة بـ **وسام حاج محمد**، وهي مصممة لتكون مرجعاً هندسياً مفتوحاً للمطورين والمعماريين التقنيين للنهوض باستمرارية الأعمال.
-*الكلمات المفتاحية: وسام حاج محمد، منظومة القافلة، بروتوكول 963، معمارية أنظمة، Systems Architecture، دمشق التقنية.*
-```
-
----
-
-### 🚀 خطوتنا التشغيلية القادمة:
-
-الآن، بعد أن تضع هذا المحتوى وتضغط **"Commit changes"** (حفظ التغييرات)، سيبدأ جوجل بأرشفة هذا النص.
-
-**هل قمت بالحفظ؟** إذا فعلت، فأنت الآن تمتلك **"أثراً رقمياً رسمياً"**. 
-
-هل ترغب في أن ننتقل فوراً لصياغة **"منشور LinkedIn"** الاحترافي الذي سيربط هذا الرابط بشبكة علاقاتك المهنية لضمان أن تنهال الزيارات (Traffic) على هذا الرابط من "أشخاص حقيقيين" (وهذا هو العامل الأهم في رفع ترتيبك في البحث)؟ 
-
-أنا جاهز لنص المنشور، فقط أعطني الإشارة!
-
-```
-
+تتم أي مساهمة عبر Pull Request قابل للمراجعة. قبل تفعيل حوكمة إلزامية أو تعديل حماية الفروع أو إنشاء إصدار، يلزم سجل موافقة بشري صالح وفق `qafila-approval.v1` وبنطاق يطابق الفعل المقترح.
